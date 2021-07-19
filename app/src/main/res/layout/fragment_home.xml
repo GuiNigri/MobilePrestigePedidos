@@ -8,7 +8,7 @@
     tools:context=".HomeFragment" >
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btn_login"
         android:layout_width="283dp"
         android:layout_height="67dp"
         android:layout_marginBottom="168dp"
@@ -24,7 +24,7 @@
         android:layout_height="221dp"
         android:layout_marginTop="192dp"
         android:src="@drawable/principal"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
