@@ -45,7 +45,7 @@ class LoginFragment : Fragment() {
 
             if(email.isNotEmpty() && password.isNotEmpty()){
                 progressBarLogin.visibility = View.VISIBLE
-                var status = apiViewModel.logar(email, password, requireContext());
+                apiViewModel.logar(email, password, requireContext());
 
                 apiViewModel.status.observe(viewLifecycleOwner, Observer { status ->
                     if (status){

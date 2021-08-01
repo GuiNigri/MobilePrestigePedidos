@@ -16,7 +16,6 @@ class Token {
 
         private fun getDirectory(diretorio: String, criar: Boolean, context: Context): File {
             var dirArq = context.filesDir!!.path + "/" + diretorio
-            Toast.makeText(context, dirArq, Toast.LENGTH_LONG).show()
             var dirFile = File(dirArq)
             if (!dirFile.exists() && (!criar || !dirFile.mkdirs()))
                 throw Exception("Diretório indisponível")
