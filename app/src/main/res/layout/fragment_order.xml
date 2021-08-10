@@ -108,4 +108,39 @@
         android:src="@drawable/ic_baseline_qr_code_scanner_24"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="810dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        tools:listitem="@layout/item_pedido_card" />
+
+    <Button
+        android:id="@+id/btn_finalizar"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="#000000"
+        android:text="Finalizar"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Subtotal: R$ 5.000,00"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btn_finalizar"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
