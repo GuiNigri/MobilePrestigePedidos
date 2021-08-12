@@ -37,7 +37,7 @@
         app:layout_constraintGuide_end="16dp" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/barCodeText"
         android:layout_width="509dp"
         android:layout_height="60dp"
         android:layout_marginTop="60dp"
@@ -45,13 +45,13 @@
         android:ems="10"
         android:inputType="number"
         android:padding="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName2"
+        app:layout_constraintEnd_toStartOf="@+id/quantityText"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/quantityText"
         android:layout_width="115dp"
         android:layout_height="60dp"
         android:layout_marginTop="60dp"
@@ -79,24 +79,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Ref / Cód. Barras"
+        android:text="Cód. Barras"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/barCodeText"
         app:layout_constraintStart_toStartOf="@+id/guideline7" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="400dp"
+        android:layout_marginStart="448dp"
         android:layout_marginBottom="8dp"
         android:text="Quant"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName2"
+        app:layout_constraintBottom_toTopOf="@+id/quantityText"
         app:layout_constraintStart_toEndOf="@+id/textView6" />
 
     <ImageButton
@@ -110,14 +110,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/produtosList"
         android:layout_width="0dp"
         android:layout_height="810dp"
         android:layout_marginTop="44dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/barCodeText"
         tools:listitem="@layout/item_pedido_card" />
 
     <Button
@@ -129,7 +129,7 @@
         android:text="Finalizar"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/produtosList" />
 
     <TextView
         android:id="@+id/textView8"
@@ -142,5 +142,5 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/btn_finalizar"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/produtosList" />
 </androidx.constraintlayout.widget.ConstraintLayout>

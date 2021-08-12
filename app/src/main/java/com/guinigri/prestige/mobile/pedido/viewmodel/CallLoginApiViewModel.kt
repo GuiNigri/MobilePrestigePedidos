@@ -15,7 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CallApiViewModel:ViewModel() {
+class CallLoginApiViewModel:ViewModel() {
     var status = MutableLiveData<Boolean>();
 
     fun logar(email:String, password:String, context: Context){
@@ -41,8 +41,8 @@ class CallApiViewModel:ViewModel() {
                     }
                     else{
                         if(result?.status!!){
-                            Token.token = result?.token!!;
-                            Token.expires = result?.expires!!;
+                            Token.setToken(result?.token!!);
+                            Token.setExpires(result?.expires!!);
                             status.value = true;
                             Token.saveToken(context)
                         }

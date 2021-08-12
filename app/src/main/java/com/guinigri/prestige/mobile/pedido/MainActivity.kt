@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.guinigri.prestige.mobile.pedido.settings.Token
+import java.io.File
 import java.text.SimpleDateFormat
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
@@ -14,10 +15,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var file = Token.checkFile(applicationContext);
-        if(file?.exists()!!){
-            Token.readFile(file, applicationContext);
-            var dateOffset = convertStringToDate(Token.expires);
+        checkTokenAndExpiresDate();
+
+    }
+
+    private fun checkTokenAndExpiresDate(){
+        var fileToken = getFileToken();
+        if(fileToken.exists()){
+            Token.readFile(fileToken, applicationContext);
+            var dateOffset = convertStringToDate(Token.getExpires());
 
             var result = dateOffset.compareTo(getDate())
 
@@ -29,6 +35,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getFileToken(): File {
+        return Token.checkFile(applicationContext)!!;
+    }
     private fun getDate():OffsetDateTime{
         return OffsetDateTime.now(ZoneOffset.UTC)
     }

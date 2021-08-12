@@ -11,8 +11,8 @@ import java.util.*
 
 class Token {
     companion object {
-        var token = ""
-        var expires = ""
+        private var token = ""
+        private var expires = ""
 
         private fun getDirectory(diretorio: String, criar: Boolean, context: Context): File {
             var dirArq = context.filesDir!!.path + "/" + diretorio
@@ -86,6 +86,22 @@ class Token {
 
         private fun encrypt():String{
             return MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        }
+
+        fun getToken():String{
+            return "Bearer $token";
+        }
+
+        fun setToken(token:String){
+            this.token = token;
+        }
+
+        fun setExpires(expires:String){
+            this.expires = expires;
+        }
+
+        fun getExpires(): String {
+            return this.getExpires();
         }
     }
 }

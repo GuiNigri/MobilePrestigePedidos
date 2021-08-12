@@ -13,12 +13,12 @@ import androidx.navigation.fragment.findNavController
 import com.guinigri.prestige.mobile.pedido.ApplicationActivity
 import com.guinigri.prestige.mobile.pedido.R
 import com.guinigri.prestige.mobile.pedido.ViewModelFactory
-import com.guinigri.prestige.mobile.pedido.viewmodel.CallApiViewModel
+import com.guinigri.prestige.mobile.pedido.viewmodel.CallLoginApiViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
 
-    private lateinit var apiViewModel: CallApiViewModel
+    private lateinit var loginApiViewModel: CallLoginApiViewModel
     private lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreateView(
@@ -34,9 +34,9 @@ class LoginFragment : Fragment() {
 
         viewModelFactory = ViewModelFactory()
         activity?.let {
-            apiViewModel =
+            loginApiViewModel =
                 ViewModelProvider(it, viewModelFactory) // MainActivity
-                    .get(CallApiViewModel::class.java)
+                    .get(CallLoginApiViewModel::class.java)
         }
 
         btn_entrar.setOnClickListener {
@@ -45,9 +45,9 @@ class LoginFragment : Fragment() {
 
             if(email.isNotEmpty() && password.isNotEmpty()){
                 progressBarLogin.visibility = View.VISIBLE
-                apiViewModel.logar(email, password, requireContext());
+                loginApiViewModel.logar(email, password, requireContext());
 
-                apiViewModel.status.observe(viewLifecycleOwner, Observer { status ->
+                loginApiViewModel.status.observe(viewLifecycleOwner, Observer { status ->
                     if (status){
                         requireActivity().finish()
                         startActivity(
