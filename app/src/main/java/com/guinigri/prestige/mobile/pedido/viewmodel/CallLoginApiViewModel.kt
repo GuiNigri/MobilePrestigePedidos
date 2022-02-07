@@ -16,10 +16,15 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class CallLoginApiViewModel:ViewModel() {
+
     var status = MutableLiveData<Boolean>();
 
+    val MensagemSistemaIndisponivel = "Ocorreu um erro no sistema, por favor tente novamente"
+    val MensagemUsuarioSenhaIncorreto = "Usuario ou senha incorretos"
+
     fun logar(email:String, password:String, context: Context){
-        var json:String  =  "{\"email\": \"$email\", \"password\": \"$password\"}";
+
+        var json =  "{\"email\": \"$email\", \"password\": \"$password\"}";
         var body:RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),json);
 
         var call = RetroFitClient.getApplicationMainApiService().login(body);
@@ -34,28 +39,28 @@ class CallLoginApiViewModel:ViewModel() {
                 ) {
                     var result = response.body();
 
-
                     if(result == null && response.message() == "Unauthorized"){
-                        Toast.makeText(context, "Usuario ou senha incorretos", Toast.LENGTH_LONG).show()
+                        exibirNotificacao(MensagemUsuarioSenhaIncorreto, context)
                         status.value = false;
+
+                        return;
                     }
-                    else{
-                        if(result?.status!!){
-                            Token.setToken(result?.token!!);
-                            Token.setExpires(result?.expires!!);
-                            status.value = true;
-                            Token.saveToken(context)
-                        }
-                    }
+
+                    Token.atualizarDados(result?.token!!, result?.expires!!, context);
+                    status.value = true;
                 }
 
                 override fun onFailure(call: Call<LoginApiResponseViewModel>, t: Throwable) {
-                    Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
+                    exibirNotificacao(MensagemSistemaIndisponivel, context)
                     status.value = false;
                 }
 
 
             }
         )
+    }
+
+    private fun exibirNotificacao(mensagem: String, context: Context){
+        Toast.makeText(context, mensagem, Toast.LENGTH_LONG).show()
     }
 }

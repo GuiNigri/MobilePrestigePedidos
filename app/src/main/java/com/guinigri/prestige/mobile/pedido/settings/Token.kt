@@ -7,101 +7,115 @@ import androidx.annotation.RequiresApi
 import androidx.security.crypto.EncryptedFile
 import androidx.security.crypto.MasterKeys
 import java.io.*
+import java.lang.Exception
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class Token {
     companion object {
         private var token = ""
-        private var expires = ""
+        private var validade = ""
 
-        private fun getDirectory(diretorio: String, criar: Boolean, context: Context): File {
-            var dirArq = context.filesDir!!.path + "/" + diretorio
-            var dirFile = File(dirArq)
-            if (!dirFile.exists() && (!criar || !dirFile.mkdirs()))
-                throw Exception("Diretório indisponível")
-            return dirFile
-        }
-
-        private fun deleteToken(file:File){
+        private fun deletarToken(file:File){
             file.delete();
         }
 
-        fun checkFile(context:Context): File? {
-            var directory = getDirectory("token", false,context);
-            var file = File("${directory.path}/token.note");
+        fun obterDados(context : Context) {
 
-            if(file.exists()){
-                return file;
+            var diretorio = obterDiretorio(context);
+
+            var arquivo = File("${diretorio}/token.note");
+
+            if(arquivoNaoExiste(arquivo))
+                return;
+
+            lerDados(arquivo, context)
+        }
+
+        private fun arquivoNaoExiste(arquivo: File) : Boolean{
+            return !arquivo.exists();
+        }
+
+        private fun lerDados(arquivo: File, context: Context) {
+
+            var arquivoDescriptografado = descriptografarArquivo(arquivo, context)
+
+            val reader = BufferedReader(InputStreamReader(arquivoDescriptografado))
+
+            var contador = 1
+
+            reader.lines().forEach { line ->
+                if(contador == 1){
+                    this.token = line
+                }else if(contador == 2) {
+                    this.validade = line
+                }
+
+                contador += 1
             }
 
-            return null;
+            arquivoDescriptografado.close()
         }
-        fun readFile(nome: File, context: Context){
 
-            var encryptedIn = EncryptedFile.Builder(
-                nome, context, encrypt(),
+        private fun descriptografarArquivo(arquivo: File, context: Context) : FileInputStream {
+            return EncryptedFile.Builder(
+                arquivo, context, MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
                 EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
             ).build().openFileInput()
-
-            val br = BufferedReader(InputStreamReader(encryptedIn))
-
-            var count = 1
-            br.lines().forEach{ line ->
-                if(count == 1){
-                    this.token = line
-                }else if(count == 2) {
-                    this.expires = line
-                }
-                count += 1
-            }
-
-            encryptedIn.close()
         }
 
-        fun saveToken(context: Context) {
-            var file = checkFile(context);
+        fun validar() : Boolean{
 
-            if(file?.exists()!!){
-              deleteToken(file!!);
-            }
+            if(OffsetDateTime.parse(this.validade) <= OffsetDateTime.now())
+                return true
 
-            var diretorio = getDirectory("token", false, context)
-
-            var note = File(diretorio.path + "/token.note")
-
-            var encryptedOut = EncryptedFile.Builder(
-                note, context, encrypt(),
-                EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
-
-            ).build().openFileOutput()
-
-            val pw = PrintWriter(encryptedOut)
-
-            pw.println(this.token)
-            pw.println(this.expires)
-            pw.flush()
-
-            encryptedOut.close()
+            return false
         }
 
-        private fun encrypt():String{
-            return MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        fun atualizarDados(token: String, validade: String, context: Context){
+
+            this.token = token
+            this.validade = validade
+
+            gravar(context)
+        }
+
+        private fun gravar(context: Context) {
+
+            var diretorio = File(obterDiretorio(context));
+
+            if(arquivoNaoExiste(diretorio))
+                diretorio.mkdirs()
+
+            var arquivo = File(diretorio.toString() + "/token.note")
+
+            var arquivoCriptografado = criptografarArquivo(arquivo, context)
+
+            val writer = PrintWriter(arquivoCriptografado)
+
+            writer.println(this.token)
+            writer.println(this.validade)
+            writer.flush()
+
+            arquivoCriptografado.close()
+        }
+
+        private fun criptografarArquivo(arquivo: File, context: Context): FileOutputStream{
+
+            return EncryptedFile.Builder(
+                arquivo, context, MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+                EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB).build().openFileOutput()
+        }
+
+        private fun obterDiretorio(context: Context): String {
+            return context.filesDir!!.path + "/token"
         }
 
         fun getToken():String{
             return "Bearer $token";
-        }
-
-        fun setToken(token:String){
-            this.token = token;
-        }
-
-        fun setExpires(expires:String){
-            this.expires = expires;
-        }
-
-        fun getExpires(): String {
-            return this.getExpires();
         }
     }
 }
