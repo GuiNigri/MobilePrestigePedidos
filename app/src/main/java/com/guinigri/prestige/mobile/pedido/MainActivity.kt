@@ -3,6 +3,8 @@ package com.guinigri.prestige.mobile.pedido
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import com.guinigri.prestige.mobile.pedido.settings.Token
 import java.io.File
 import java.text.SimpleDateFormat
@@ -15,34 +17,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        checkTokenAndExpiresDate();
+        validarToken();
 
     }
 
-    private fun checkTokenAndExpiresDate(){
-        var fileToken = getFileToken();
-        if(fileToken.exists()){
-            Token.readFile(fileToken, applicationContext);
-            var dateOffset = convertStringToDate(Token.getExpires());
+    private fun validarToken(){
+        try
+        {
+            Token.obterDados(applicationContext)!!;
 
-            var result = dateOffset.compareTo(getDate())
-
-            if(result >= 1){
-                startActivity(
-                    Intent(applicationContext, ApplicationActivity::class.java)
-                )
-            }
+            if(Token.validar())
+                startActivity(Intent(applicationContext, ApplicationActivity::class.java))
         }
-    }
+        catch (ex : Exception)
+        {
+            println("Erro ao ler token ou token inexistente.")
+        }
 
-    private fun getFileToken(): File {
-        return Token.checkFile(applicationContext)!!;
-    }
-    private fun getDate():OffsetDateTime{
-        return OffsetDateTime.now(ZoneOffset.UTC)
-    }
-
-    private fun convertStringToDate(date:String):OffsetDateTime{
-        return OffsetDateTime.parse(date);
     }
 }
