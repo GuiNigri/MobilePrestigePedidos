@@ -1,4 +1,4 @@
-package com.guinigri.prestige.mobile.pedido.viewmodel
+package com.guinigri.prestige.mobile.pedido.viewmodel.login
 
 import androidx.lifecycle.ViewModel
 
