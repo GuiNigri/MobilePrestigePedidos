@@ -1,4 +1,4 @@
-package com.guinigri.prestige.mobile.pedido.viewmodel
+package com.guinigri.prestige.mobile.pedido.viewmodel.login
 
 import android.content.Context
 import android.os.Build
@@ -7,7 +7,6 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.guinigri.prestige.mobile.pedido.api.RetroFitClient
-import com.guinigri.prestige.mobile.pedido.fragments.LoginFragment
 import com.guinigri.prestige.mobile.pedido.settings.Token
 import okhttp3.MediaType
 import okhttp3.RequestBody

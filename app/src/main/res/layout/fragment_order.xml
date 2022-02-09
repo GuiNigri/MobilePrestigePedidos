@@ -37,7 +37,7 @@
         app:layout_constraintGuide_end="16dp" />
 
     <EditText
-        android:id="@+id/barCodeText"
+        android:id="@+id/txt_codigo_barras"
         android:layout_width="509dp"
         android:layout_height="60dp"
         android:layout_marginTop="60dp"
@@ -60,11 +60,11 @@
         android:ems="10"
         android:inputType="number"
         android:padding="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/btn_pesquisar_produto"
         app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btn_pesquisar_produto"
         android:layout_width="66dp"
         android:layout_height="60dp"
         android:layout_marginTop="60dp"
@@ -83,7 +83,7 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/barCodeText"
+        app:layout_constraintBottom_toTopOf="@+id/txt_codigo_barras"
         app:layout_constraintStart_toStartOf="@+id/guideline7" />
 
     <TextView
@@ -117,7 +117,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/barCodeText"
+        app:layout_constraintTop_toBottomOf="@+id/txt_codigo_barras"
         tools:listitem="@layout/item_pedido_card" />
 
     <Button

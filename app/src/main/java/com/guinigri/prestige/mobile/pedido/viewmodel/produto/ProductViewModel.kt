@@ -1,10 +1,9 @@
-package com.guinigri.prestige.mobile.pedido.viewmodel
+package com.guinigri.prestige.mobile.pedido.viewmodel.produto
 
-import androidx.lifecycle.ViewModel
+import com.guinigri.prestige.mobile.pedido.viewmodel.BaseViewModel
 
-class ProductViewModel(
-    var reference:String?=null,
-    var referenceColor:String?=null,
-    var unitaryAmount:Double?=null,
-    var quantity:Int?=null
-): ViewModel()
+class ProductViewModel (
+    var referencia:String?=null,
+    var cor:String?=null,
+    var valorUnitario:Double?=null,
+): BaseViewModel()

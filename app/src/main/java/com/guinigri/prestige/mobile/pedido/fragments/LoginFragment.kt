@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.guinigri.prestige.mobile.pedido.ApplicationActivity
 import com.guinigri.prestige.mobile.pedido.R
 import com.guinigri.prestige.mobile.pedido.ViewModelFactory
-import com.guinigri.prestige.mobile.pedido.viewmodel.CallLoginApiViewModel
+import com.guinigri.prestige.mobile.pedido.viewmodel.login.CallLoginApiViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {

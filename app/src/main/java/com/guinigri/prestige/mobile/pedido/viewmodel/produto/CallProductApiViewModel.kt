@@ -1,4 +1,4 @@
-package com.guinigri.prestige.mobile.pedido.viewmodel
+package com.guinigri.prestige.mobile.pedido.viewmodel.produto
 
 import android.content.Context
 import android.os.Build
@@ -7,16 +7,18 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.guinigri.prestige.mobile.pedido.api.RetroFitClient
 import com.guinigri.prestige.mobile.pedido.settings.Token
+import com.guinigri.prestige.mobile.pedido.viewmodel.BaseCallViewModel
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CallProductApiViewModel:ViewModel() {
+class CallProductApiViewModel: BaseCallViewModel() {
 
-    fun getProduct(barCode:Long, context:Context){
-        var call = RetroFitClient.getApplicationMainApiService().getProduct(barCode,Token.getToken());
+    fun obterProdutoPeloCodigoBarras(codigoBarras: String, context: Context){
+
+        var call = RetroFitClient.getApplicationMainApiService().obterProdutoPeloCodigoBarras(codigoBarras,Token.getToken());
 
         call.enqueue(
             object : Callback<ProductViewModel> {
@@ -28,10 +30,9 @@ class CallProductApiViewModel:ViewModel() {
                 ) {
                     var result = response.body();
 
+                    validarResponse(response.message(), result!!, context)
 
-                    if(result == null && response.message() == "Unauthorized"){
-                        Toast.makeText(context, "Usuario ou senha incorretos", Toast.LENGTH_LONG).show()
-                    }
+
                 }
 
                 override fun onFailure(call: Call<ProductViewModel>, t: Throwable) {

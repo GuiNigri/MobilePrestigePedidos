@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.guinigri.prestige.mobile.pedido.R
-import com.guinigri.prestige.mobile.pedido.viewmodel.ProductViewModel
+import com.guinigri.prestige.mobile.pedido.viewmodel.produto.ProductViewModel
 
 class ProductAdapter(
     var products: List<ProductViewModel> = listOf()
@@ -29,8 +29,8 @@ class ProductAdapter(
 
     override fun onBindViewHolder(holder: ProdutoViewHolder, position: Int) {
 
-        holder.productInfo.text = "Ref: ${products[position].reference} - Cor: ${products[position].referenceColor} Vl. Unit: ${products[position].unitaryAmount}"
-        holder.productQuantAndPrice.text = "Quant: ${products[position].quantity} - Vl. Total: ${products[position].unitaryAmount!! * products[position].quantity!!}"
+        holder.productInfo.text = "Ref: ${products[position].referencia} - Cor: ${products[position].cor} Vl. Unit: ${products[position].valorUnitario}"
+        holder.productQuantAndPrice.text = "Quant: 2 - Vl. Total: ${products[position].valorUnitario!! * 2}"
     }
 
     fun updateData(produtos: List<ProductViewModel>){

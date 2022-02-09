@@ -1,4 +1,6 @@
 package com.guinigri.prestige.mobile.pedido.viewmodel
 
-class BaseViewModel {
+import androidx.lifecycle.ViewModel
+
+open class BaseViewModel(): ViewModel(){
 }
