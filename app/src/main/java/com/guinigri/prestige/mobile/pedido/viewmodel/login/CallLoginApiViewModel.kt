@@ -1,4 +1,4 @@
-package com.guinigri.prestige.mobile.pedido.viewmodel
+package com.guinigri.prestige.mobile.pedido.viewmodel.login
 
 import android.content.Context
 import android.os.Build
@@ -7,7 +7,6 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.guinigri.prestige.mobile.pedido.api.RetroFitClient
-import com.guinigri.prestige.mobile.pedido.fragments.LoginFragment
 import com.guinigri.prestige.mobile.pedido.settings.Token
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -19,8 +18,8 @@ class CallLoginApiViewModel:ViewModel() {
 
     var status = MutableLiveData<Boolean>();
 
-    val MensagemSistemaIndisponivel = "Ocorreu um erro no sistema, por favor tente novamente"
-    val MensagemUsuarioSenhaIncorreto = "Usuario ou senha incorretos"
+    val mensagemSistemaIndisponivel = "Ocorreu um erro no sistema, por favor tente novamente"
+    val mensagemUsuarioSenhaIncorreto = "Usuario ou senha incorretos"
 
     fun logar(email:String, password:String, context: Context){
 
@@ -40,7 +39,7 @@ class CallLoginApiViewModel:ViewModel() {
                     var result = response.body();
 
                     if(result == null && response.message() == "Unauthorized"){
-                        exibirNotificacao(MensagemUsuarioSenhaIncorreto, context)
+                        exibirNotificacao(mensagemUsuarioSenhaIncorreto, context)
                         status.value = false;
 
                         return;
@@ -51,7 +50,7 @@ class CallLoginApiViewModel:ViewModel() {
                 }
 
                 override fun onFailure(call: Call<LoginApiResponseViewModel>, t: Throwable) {
-                    exibirNotificacao(MensagemSistemaIndisponivel, context)
+                    exibirNotificacao(mensagemSistemaIndisponivel, context)
                     status.value = false;
                 }
 

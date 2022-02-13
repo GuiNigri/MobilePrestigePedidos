@@ -1,8 +1,8 @@
-package com.guinigri.prestige.mobile.pedido.viewmodel
+package com.guinigri.prestige.mobile.pedido.api.request
 
 import androidx.lifecycle.ViewModel
 
-class LoginApiRequestViewModel (
+class LoginApiRequest (
     var email:String?=null,
     var passowrd:String?=null
 ):ViewModel()

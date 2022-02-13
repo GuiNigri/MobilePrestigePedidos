@@ -11,6 +11,7 @@ import java.lang.Exception
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -36,7 +37,7 @@ class Token {
         }
 
         private fun arquivoNaoExiste(arquivo: File) : Boolean{
-            return !arquivo.exists();
+            return !arquivoExiste(arquivo);
         }
 
         private fun lerDados(arquivo: File, context: Context) {
@@ -69,7 +70,10 @@ class Token {
 
         fun validar() : Boolean{
 
-            if(OffsetDateTime.parse(this.validade) <= OffsetDateTime.now())
+            var dataAtual = OffsetDateTime.now(ZoneId.of("America/Sao_Paulo"));
+            var data = OffsetDateTime.parse(this.validade);
+
+            if(OffsetDateTime.now() <= OffsetDateTime.parse(this.validade))
                 return true
 
             return false
@@ -87,10 +91,13 @@ class Token {
 
             var diretorio = File(obterDiretorio(context));
 
-            if(arquivoNaoExiste(diretorio))
+            if(diretorioNaoExiste(diretorio))
                 diretorio.mkdirs()
 
             var arquivo = File(diretorio.toString() + "/token.note")
+
+            if(arquivoExiste(arquivo))
+                arquivo.delete()
 
             var arquivoCriptografado = criptografarArquivo(arquivo, context)
 
@@ -101,6 +108,14 @@ class Token {
             writer.flush()
 
             arquivoCriptografado.close()
+        }
+
+        private fun diretorioNaoExiste(diretorio: File) : Boolean{
+            return arquivoNaoExiste(diretorio);
+        }
+
+        private fun arquivoExiste(arquivo: File) : Boolean{
+            return arquivo.exists();
         }
 
         private fun criptografarArquivo(arquivo: File, context: Context): FileOutputStream{
