@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#004584"
-    tools:context=".OrderFragment" >
+    tools:context=".fragments.OrderFragment" >
 
     <CheckBox
         android:id="@+id/checkBox"
@@ -17,7 +17,7 @@
         android:text="Inserir quantidade"
         android:textColor="#FBFBFB"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        app:layout_constraintEnd_toStartOf="@+id/btn_codigo_barras"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="parent" />
@@ -100,7 +100,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView6" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/btn_codigo_barras"
         android:layout_width="67dp"
         android:layout_height="62dp"
         android:layout_marginTop="16dp"
@@ -143,4 +143,5 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_finalizar"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toBottomOf="@+id/produtosList" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
