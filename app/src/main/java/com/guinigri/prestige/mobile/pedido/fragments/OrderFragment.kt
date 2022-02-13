@@ -141,8 +141,8 @@ class OrderFragment() : Fragment(), EasyPermissions.PermissionCallbacks {
         perms: MutableList<String>) {
 
         val scanner = IntentIntegrator(activity)
-        scanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-        scanner.setBeepEnabled(false) //retira o beep ao scannear
+        scanner.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
+        scanner.setBeepEnabled(false)
         scanner.initiateScan()
     }
 

@@ -26,8 +26,12 @@ class MainActivity : AppCompatActivity() {
         {
             Token.obterDados(applicationContext)!!;
 
-            if(Token.validar())
+            if(Token.validar()){
                 startActivity(Intent(applicationContext, ApplicationActivity::class.java))
+                finish()
+            }
+
+
         }
         catch (ex : Exception)
         {
