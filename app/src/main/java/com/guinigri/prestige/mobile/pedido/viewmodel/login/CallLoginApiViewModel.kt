@@ -18,8 +18,8 @@ class CallLoginApiViewModel:ViewModel() {
 
     var status = MutableLiveData<Boolean>();
 
-    val MensagemSistemaIndisponivel = "Ocorreu um erro no sistema, por favor tente novamente"
-    val MensagemUsuarioSenhaIncorreto = "Usuario ou senha incorretos"
+    val mensagemSistemaIndisponivel = "Ocorreu um erro no sistema, por favor tente novamente"
+    val mensagemUsuarioSenhaIncorreto = "Usuario ou senha incorretos"
 
     fun logar(email:String, password:String, context: Context){
 
@@ -39,7 +39,7 @@ class CallLoginApiViewModel:ViewModel() {
                     var result = response.body();
 
                     if(result == null && response.message() == "Unauthorized"){
-                        exibirNotificacao(MensagemUsuarioSenhaIncorreto, context)
+                        exibirNotificacao(mensagemUsuarioSenhaIncorreto, context)
                         status.value = false;
 
                         return;
@@ -50,7 +50,7 @@ class CallLoginApiViewModel:ViewModel() {
                 }
 
                 override fun onFailure(call: Call<LoginApiResponseViewModel>, t: Throwable) {
-                    exibirNotificacao(MensagemSistemaIndisponivel, context)
+                    exibirNotificacao(mensagemSistemaIndisponivel, context)
                     status.value = false;
                 }
 

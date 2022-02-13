@@ -53,7 +53,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/btn_deletar"
             android:layout_width="50dp"
             android:layout_height="43dp"
             android:backgroundTint="#AA0505"
@@ -73,7 +73,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline10"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+            app:layout_constraintEnd_toStartOf="@+id/btn_deletar"
             app:layout_constraintTop_toTopOf="@+id/guideline9" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
