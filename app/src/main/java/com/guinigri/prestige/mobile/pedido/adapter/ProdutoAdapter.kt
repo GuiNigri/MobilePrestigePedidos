@@ -3,20 +3,16 @@ package com.guinigri.prestige.mobile.pedido.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.guinigri.prestige.mobile.pedido.R
-import com.guinigri.prestige.mobile.pedido.viewmodel.Carrinho
 import com.guinigri.prestige.mobile.pedido.viewmodel.produto.ProductViewModel
-import kotlinx.android.parcel.Parcelize
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ProdutoAdapter(
 ):RecyclerView.Adapter<ProdutoAdapter.ProdutoViewHolder>() {
