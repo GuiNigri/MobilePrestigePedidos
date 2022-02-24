@@ -36,27 +36,46 @@
         android:id="@+id/btn_entrar"
         android:layout_width="283dp"
         android:layout_height="80dp"
-        android:layout_marginTop="204dp"
         android:backgroundTint="#090909"
         android:text="Entrar"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+        app:layout_constraintVertical_bias="0.479" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_marginTop="84dp"
+        android:text="Entre com a sua conta"
+        android:textAlignment="center"
+        android:textColor="#F8F2F2"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/btn_return" />
 
     <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="600dp"
+        android:id="@+id/txtEmail"
+        android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginTop="84dp"
-        android:background="#F3F1F1"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="84dp"
+        android:background="#EDECEC"
         android:ems="10"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         android:padding="5dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView3"
@@ -72,17 +91,20 @@
         app:layout_constraintStart_toStartOf="@+id/guideline3" />
 
     <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="600dp"
+        android:id="@+id/txtPassword"
+        android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginTop="196dp"
-        android:background="#EDECEC"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="84dp"
+        android:background="#F3F1F1"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:padding="5dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
     <TextView
         android:id="@+id/textView2"
@@ -96,21 +118,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtEmail"
         app:layout_constraintStart_toStartOf="@+id/guideline3" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="44dp"
-        android:layout_marginTop="156dp"
-        android:text="Entre com a sua conta"
-        android:textAlignment="center"
-        android:textColor="#F8F2F2"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/btn_return" />
 
     <ProgressBar
         android:id="@+id/progressBarLogin"

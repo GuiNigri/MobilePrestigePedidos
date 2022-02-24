@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(applicationContext, ApplicationActivity::class.java))
                 finish()
             }
-
-
         }
         catch (ex : Exception)
         {

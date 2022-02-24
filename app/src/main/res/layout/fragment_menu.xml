@@ -7,27 +7,46 @@
     android:layout_height="match_parent"
     tools:context=".fragments.MenuFragment" >
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="371dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="176dp"
+        android:text="Bem vindo, usuario!"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btn_cadastrar_empresa"
         android:layout_width="283dp"
         android:layout_height="80dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="72dp"
         android:backgroundTint="#004584"
         android:text="Cadastrar Empresa"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/btn_ver_pedidos" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_ver_pedidos"
+        app:layout_constraintVertical_bias="0.013" />
 
     <Button
         android:id="@+id/btn_realizar_pedido"
         android:layout_width="283dp"
         android:layout_height="80dp"
-        android:layout_marginTop="204dp"
+        android:layout_marginTop="156dp"
         android:backgroundTint="#004584"
         android:text="Realizar Pedido"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -35,27 +54,14 @@
         android:id="@+id/btn_ver_pedidos"
         android:layout_width="283dp"
         android:layout_height="80dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="68dp"
         android:backgroundTint="#004584"
         android:text="Ver Pedidos"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toBottomOf="@+id/btn_realizar_pedido" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="371dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="252dp"
-        android:text="Bem vindo, usuario!"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
