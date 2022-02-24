@@ -17,8 +17,17 @@ import java.util.*
 class ProdutoAdapter(
 ):RecyclerView.Adapter<ProdutoAdapter.ProdutoViewHolder>() {
 
-    private var produtos = mutableListOf<ProductViewModel>()
-    var valorTotal = MutableLiveData<String>()
+    companion object {
+        var produtos = mutableListOf<ProductViewModel>()
+        var valorTotalFormatado = MutableLiveData<String>()
+        var valorTotalSemFormatacao = MutableLiveData<Double>()
+
+        fun resetar(){
+            produtos.clear()
+            valorTotalFormatado.value = "0,00"
+            valorTotalSemFormatacao.value = 0.0
+        }
+    }
 
     class ProdutoViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         val card:ConstraintLayout = itemView.findViewById(R.id.ProdutoCard);
@@ -38,10 +47,9 @@ class ProdutoAdapter(
     override fun onBindViewHolder(holder: ProdutoViewHolder, position: Int) {
 
         var valorUnitarioFormatado = formatarParaRealBrl(produtos[position].valorUnitario!!)
-        var valorUnitarioTotalFormatado = formatarParaRealBrl(produtos[position].valorUnitario!! * produtos[position].quantidade!!)
 
         holder.productInfo.text = "Ref: ${produtos[position].referencia} - Cor: ${produtos[position].cor} | Vl. Unit: R$ ${valorUnitarioFormatado}"
-        holder.productQuantAndPrice.text = "Quant: ${produtos[position].quantidade} - Vl. Total: R$ ${valorUnitarioTotalFormatado}"
+        holder.productQuantAndPrice.text = "Quant: ${produtos[position].quantidade}"
 
         holder.btnDeletar.setOnClickListener {
             var id = produtos[position].id!!
@@ -78,7 +86,8 @@ class ProdutoAdapter(
     }
 
     private fun atualizarValorTotal(){
-        valorTotal.value = formatarParaRealBrl(calcularValorTotal())
+        valorTotalFormatado.value = formatarParaRealBrl(calcularValorTotal())
+        valorTotalSemFormatacao.value = calcularValorTotal()
     }
 
     private fun calcularValorTotal() : Double{

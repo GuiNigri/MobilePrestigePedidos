@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.zxing.Result
 import com.google.zxing.integration.android.IntentIntegrator
@@ -17,7 +18,6 @@ import com.google.zxing.integration.android.IntentResult
 import com.guinigri.prestige.mobile.pedido.R
 import com.guinigri.prestige.mobile.pedido.ViewModelFactory
 import com.guinigri.prestige.mobile.pedido.adapter.ProdutoAdapter
-import com.guinigri.prestige.mobile.pedido.viewmodel.produto.Carrinho
 import com.guinigri.prestige.mobile.pedido.viewmodel.produto.CallProductApiViewModel
 import kotlinx.android.synthetic.main.fragment_order.*
 import pub.devrel.easypermissions.EasyPermissions
@@ -40,13 +40,9 @@ class OrderFragment() : Fragment(), EasyPermissions.PermissionCallbacks {
         return inflater.inflate(R.layout.fragment_order, container, false)
     }
 
-    override fun onResume() {
-        super.onResume()
-        recuperarEstadoProdutos()
-    }
     override fun onPause() {
         super.onPause()
-        salvarEstadoProdutos()
+        produtoApiViewModel.produto.value = null
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
@@ -54,10 +50,8 @@ class OrderFragment() : Fragment(), EasyPermissions.PermissionCallbacks {
         configurarReciclerView()
         criarViewModel()
 
-        recuperarEstadoProdutos()
-
         btn_pesquisar_produto.setOnClickListener {
-            produtoApiViewModel.obterProdutoPeloCodigoBarras(txt_codigo_barras.text.toString(), requireContext())
+            obterProdutoPeloCodigoBarras(txt_codigo_barras.text.toString())
         }
 
         produtoApiViewModel.produto.observe(viewLifecycleOwner, Observer { produto ->
@@ -70,8 +64,20 @@ class OrderFragment() : Fragment(), EasyPermissions.PermissionCallbacks {
             }
         })
 
+        check_inserir_quantidade.setOnCheckedChangeListener { _, marcado ->
+            txt_quantidade.isEnabled = marcado
+            txt_quantidade.text = null
+        }
+
         btn_codigo_barras.setOnClickListener {
             solicitarPermissaoCamera()
+        }
+
+        btn_prosseguir.setOnClickListener {
+            if(adapter.itemCount <= 0)
+                Toast.makeText(context, "Para prosseguir é necessario no minimo um produto adicionado.", Toast.LENGTH_LONG).show()
+            else
+                findNavController().navigate(R.id.empresaPedidoFragment)
         }
 
         atualizarValorTotal()
@@ -82,21 +88,33 @@ class OrderFragment() : Fragment(), EasyPermissions.PermissionCallbacks {
 
         if(resultCode == Activity.RESULT_OK){
             val result: IntentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-            if (result != null) {
-                if (result.contents == null) {
-                    Toast.makeText(context, "Cancelled", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(context, "Scanned: " + result.contents, Toast.LENGTH_LONG)
-                        .show()
-                }
-            } else {
-                super.onActivityResult(requestCode, resultCode, data)
+
+            if (result?.contents != null) {
+                acaoLeituraCodigoBarras(result.contents.toString())
+                return
             }
+
+            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
+    private fun acaoLeituraCodigoBarras(codigoBarras: String){
+        if(!check_inserir_quantidade.isChecked){
+            obterProdutoPeloCodigoBarras(codigoBarras)
+            iniciarLeituraCodigoBarras()
+            return
+        }
+
+        txt_codigo_barras.setText(codigoBarras)
+
+    }
+
+    private fun obterProdutoPeloCodigoBarras(codigoBarras:String){
+        produtoApiViewModel.obterProdutoPeloCodigoBarras(codigoBarras, requireContext())
+    }
+
     private fun atualizarValorTotal(){
-        adapter.valorTotal.observe(viewLifecycleOwner, Observer { valorTotal ->
+        ProdutoAdapter.valorTotalFormatado.observe(viewLifecycleOwner, Observer { valorTotal ->
             txt_valor_total.setText("Subtotal: R$ ${valorTotal}")
         })
     }
@@ -115,17 +133,6 @@ class OrderFragment() : Fragment(), EasyPermissions.PermissionCallbacks {
         }
     }
 
-    private fun salvarEstadoProdutos(){
-        Carrinho.produtos.addAll(adapter.obterProdutos())
-        produtoApiViewModel.produto.value = null
-        adapter.deletarTodosProdutos()
-    }
-
-    private fun recuperarEstadoProdutos(){
-        adapter.atualizarProdutos(Carrinho.produtos)
-        Carrinho.produtos.clear()
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -140,7 +147,11 @@ class OrderFragment() : Fragment(), EasyPermissions.PermissionCallbacks {
         requestCode: Int,
         perms: MutableList<String>) {
 
-        val scanner = IntentIntegrator(activity)
+        iniciarLeituraCodigoBarras()
+    }
+
+    private fun iniciarLeituraCodigoBarras(){
+        val scanner = IntentIntegrator.forSupportFragment(this)
         scanner.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
         scanner.setBeepEnabled(false)
         scanner.initiateScan()
