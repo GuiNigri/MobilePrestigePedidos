@@ -45,9 +45,10 @@ class LoginFragment : Fragment() {
             var email = txtEmail.text.toString();
             var senha = txtPassword.text.toString();
 
-            if(email.isNotEmpty() && senha.isNotEmpty())
+            if(email.isNotEmpty() && senha.isNotEmpty()) {
+                progressBarLogin.visibility = View.VISIBLE
                 autenticar(email, senha)
-            else
+            }else
                 exibirNotificacao(MensagemCamposNaoPreenchidos)
         }
 
@@ -66,7 +67,7 @@ class LoginFragment : Fragment() {
 
     private fun autenticar(email: String, senha: String){
 
-        progressBarLogin.visibility = View.VISIBLE
+
         loginApiViewModel.logar(email, senha, requireContext());
 
         loginApiViewModel.status.observe(viewLifecycleOwner, Observer { status ->

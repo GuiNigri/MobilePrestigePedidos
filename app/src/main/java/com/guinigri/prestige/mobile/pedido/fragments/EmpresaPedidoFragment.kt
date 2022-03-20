@@ -1,4 +1,4 @@
-package com.guinigri.prestige.mobile.pedido
+package com.guinigri.prestige.mobile.pedido.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,10 +10,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.guinigri.prestige.mobile.pedido.R
+import com.guinigri.prestige.mobile.pedido.ViewModelFactory
 import com.guinigri.prestige.mobile.pedido.viewmodel.empresa.CallEmpresaApiViewModel
 import com.guinigri.prestige.mobile.pedido.viewmodel.empresa.EmpresaApiResponse
-import com.guinigri.prestige.mobile.pedido.viewmodel.produto.CallProductApiViewModel
-import com.guinigri.prestige.mobile.pedido.viewmodel.produto.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_empresa_pedido.*
 
 class EmpresaPedidoFragment : Fragment() {

@@ -1,5 +1,6 @@
-package com.guinigri.prestige.mobile.pedido
+package com.guinigri.prestige.mobile.pedido.fragments
 
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,16 +10,15 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.guinigri.prestige.mobile.pedido.R
+import com.guinigri.prestige.mobile.pedido.ViewModelFactory
 import com.guinigri.prestige.mobile.pedido.adapter.ProdutoAdapter
 import com.guinigri.prestige.mobile.pedido.api.request.pedido.PagamentoDto
 import com.guinigri.prestige.mobile.pedido.api.request.pedido.ProdutoDto
 import com.guinigri.prestige.mobile.pedido.api.request.pedido.RegistrarPedidoRequest
-import com.guinigri.prestige.mobile.pedido.viewmodel.empresa.CallEmpresaApiViewModel
 import com.guinigri.prestige.mobile.pedido.viewmodel.pedido.CallPedidoApiViewModel
-import com.guinigri.prestige.mobile.pedido.viewmodel.produto.CallProductApiViewModel
 import kotlinx.android.synthetic.main.fragment_empresa_pedido.*
 import kotlinx.android.synthetic.main.fragment_pagamento.*
-import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -48,6 +48,7 @@ class PagamentoFragment : Fragment() {
             if(submissaoNaoEhValida())
                 Toast.makeText(context, "Todos os campos são obrigatorios", Toast.LENGTH_LONG).show()
             else
+                progressBarFinalizarPedido.visibility = View.VISIBLE
                 finalizarPedido()
         }
 
@@ -55,6 +56,7 @@ class PagamentoFragment : Fragment() {
             if(pedidoResponse != null){
                 navegarTelaSucesso(pedidoResponse.numeroPedido!!)
                 resetarNaConclusaoPedido()
+                progressBarFinalizarPedido.visibility = View.GONE
             }
         })
     }
@@ -65,7 +67,10 @@ class PagamentoFragment : Fragment() {
     }
 
     private fun navegarTelaSucesso(numeroPedido:Int){
-        val action = PagamentoFragmentDirections.actionPagamentoFragmentToPedidoSucessoFragment(numeroPedido)
+        val action =
+            PagamentoFragmentDirections.actionPagamentoFragmentToPedidoSucessoFragment(
+                numeroPedido
+            )
         findNavController().navigate(action)
     }
 

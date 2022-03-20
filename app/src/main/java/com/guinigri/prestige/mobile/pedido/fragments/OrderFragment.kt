@@ -51,6 +51,7 @@ class OrderFragment() : Fragment(), EasyPermissions.PermissionCallbacks {
         criarViewModel()
 
         btn_pesquisar_produto.setOnClickListener {
+            progressBarAdicionarProduto.visibility = View.VISIBLE
             obterProdutoPeloCodigoBarras(txt_codigo_barras.text.toString())
         }
 
@@ -62,6 +63,8 @@ class OrderFragment() : Fragment(), EasyPermissions.PermissionCallbacks {
 
                 adapter.adicionar(produto, quantidade)
             }
+
+            progressBarAdicionarProduto.visibility = View.GONE
         })
 
         check_inserir_quantidade.setOnCheckedChangeListener { _, marcado ->

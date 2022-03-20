@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/empresaPedidoFragment"
-        android:name="com.guinigri.prestige.mobile.pedido.EmpresaPedidoFragment"
+        android:name="com.guinigri.prestige.mobile.pedido.fragments.EmpresaPedidoFragment"
         android:label="fragment_empresa_pedido"
         tools:layout="@layout/fragment_empresa_pedido" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/pagamentoFragment"
-        android:name="com.guinigri.prestige.mobile.pedido.PagamentoFragment"
+        android:name="com.guinigri.prestige.mobile.pedido.fragments.PagamentoFragment"
         android:label="fragment_pagamento"
         tools:layout="@layout/fragment_pagamento" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/pedidoSucessoFragment"
-        android:name="com.guinigri.prestige.mobile.pedido.PedidoSucessoFragment"
+        android:name="com.guinigri.prestige.mobile.pedido.fragments.PedidoSucessoFragment"
         android:label="fragment_pedido_sucesso">
         <argument
             android:name="numeroPedido"

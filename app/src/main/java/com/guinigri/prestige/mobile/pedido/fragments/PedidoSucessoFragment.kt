@@ -1,4 +1,4 @@
-package com.guinigri.prestige.mobile.pedido
+package com.guinigri.prestige.mobile.pedido.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.guinigri.prestige.mobile.pedido.R
 import kotlinx.android.synthetic.main.fragment_empresa_pedido.*
 import kotlinx.android.synthetic.main.fragment_pedido_sucesso.*
 

@@ -145,4 +145,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline7" />
 
+    <ProgressBar
+        android:id="@+id/progressBarAdicionarProduto"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="173dp"
+        android:layout_height="156dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/txt_valor_total"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

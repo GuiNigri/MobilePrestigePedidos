@@ -23,6 +23,7 @@ class CallProductApiViewModel: BaseCallViewModel() {
     var produto = MutableLiveData<ProductViewModel>()
 
     val mensagemProdutoNaoEncontrado = "Produto não encontrado"
+    val mensagemProdutoAdicionado = "Produto Adicionado"
 
     fun obterProdutoPeloCodigoBarras(codigoBarras: String, context: Context){
 
@@ -46,6 +47,7 @@ class CallProductApiViewModel: BaseCallViewModel() {
                     validarResponse(response.message(), result!!, context)
 
                     produto.value = result;
+                    Toast.makeText(context, mensagemProdutoAdicionado, Toast.LENGTH_LONG).show()
                 }
 
                 override fun onFailure(call: Call<ProductViewModel>, t: Throwable) {
