@@ -24,8 +24,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState);
 
         btn_login.setOnClickListener {
-            findNavController().navigate(R.id.loginFragment);
+            prosseguirLogin()
         }
+    }
+
+    private fun prosseguirLogin() {
+        findNavController().navigate(R.id.loginFragment);
     }
 
 }

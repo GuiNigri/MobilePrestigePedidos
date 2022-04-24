@@ -20,7 +20,7 @@ class Token {
         private var token = ""
         private var validade = ""
 
-        private fun deletarToken(file:File){
+        private fun deletarToken(file : File) {
             file.delete();
         }
 
@@ -36,7 +36,7 @@ class Token {
             lerDados(arquivo, context)
         }
 
-        private fun arquivoNaoExiste(arquivo: File) : Boolean{
+        private fun arquivoNaoExiste(arquivo: File) : Boolean {
             return !arquivoExiste(arquivo);
         }
 
@@ -49,9 +49,9 @@ class Token {
             var contador = 1
 
             reader.lines().forEach { line ->
-                if(contador == 1){
+                if (contador == 1) {
                     this.token = line
-                }else if(contador == 2) {
+                } else if(contador == 2) {
                     this.validade = line
                 }
 
@@ -68,12 +68,8 @@ class Token {
             ).build().openFileInput()
         }
 
-        fun validar() : Boolean{
-
-            var dataAtual = OffsetDateTime.now(ZoneId.of("America/Sao_Paulo"));
-            var data = OffsetDateTime.parse(this.validade);
-
-            if(OffsetDateTime.now() <= OffsetDateTime.parse(this.validade))
+        fun validar() : Boolean {
+            if (OffsetDateTime.now() <= OffsetDateTime.parse(this.validade))
                 return true
 
             return false
@@ -110,15 +106,15 @@ class Token {
             arquivoCriptografado.close()
         }
 
-        private fun diretorioNaoExiste(diretorio: File) : Boolean{
+        private fun diretorioNaoExiste(diretorio: File) : Boolean {
             return arquivoNaoExiste(diretorio);
         }
 
-        private fun arquivoExiste(arquivo: File) : Boolean{
+        private fun arquivoExiste(arquivo: File) : Boolean {
             return arquivo.exists();
         }
 
-        private fun criptografarArquivo(arquivo: File, context: Context): FileOutputStream{
+        private fun criptografarArquivo(arquivo: File, context: Context): FileOutputStream {
 
             return EncryptedFile.Builder(
                 arquivo, context, MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
@@ -129,7 +125,7 @@ class Token {
             return context.filesDir!!.path + "/token"
         }
 
-        fun getToken():String{
+        fun getToken(): String {
             return "Bearer $token";
         }
     }

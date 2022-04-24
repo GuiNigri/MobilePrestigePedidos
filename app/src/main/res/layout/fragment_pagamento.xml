@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#004584"
     android:padding="5dp"
-    tools:context=".PagamentoFragment">
+    tools:context=".fragments.PagamentoFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline15"
@@ -196,5 +196,17 @@
         app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toBottomOf="@+id/txt_observacoes"
         app:layout_constraintVertical_bias="0.036" />
+
+    <ProgressBar
+        android:id="@+id/progressBarFinalizarPedido"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="167dp"
+        android:layout_height="143dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_valor_total_pagamento"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/txt_desconto"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

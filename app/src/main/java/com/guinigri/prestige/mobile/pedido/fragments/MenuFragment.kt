@@ -23,11 +23,19 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
 
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-        }
+        impedirRetornoLogin()
 
         btn_realizar_pedido.setOnClickListener {
-            findNavController().navigate(R.id.orderFragment);
+            prosseguirRegistrarPedidos()
+        }
+    }
+
+    private fun prosseguirRegistrarPedidos() {
+        findNavController().navigate(R.id.orderFragment);
+    }
+
+    private fun impedirRetornoLogin() {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
         }
     }
 }
