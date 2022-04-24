@@ -44,7 +44,8 @@
         android:layout_marginEnd="16dp"
         android:background="#FFFFFF"
         android:ems="10"
-        android:inputType="number"
+        android:focusableInTouchMode="true"
+        android:inputType="text"
         android:padding="5dp"
         app:layout_constraintEnd_toStartOf="@+id/txt_quantidade"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -58,6 +59,7 @@
         android:layout_marginEnd="16dp"
         android:background="#FFFFFF"
         android:ems="10"
+        android:enabled="false"
         android:inputType="number"
         android:padding="5dp"
         app:layout_constraintEnd_toStartOf="@+id/btn_pesquisar_produto"
@@ -112,12 +114,17 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/produtosList"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="44dp"
+        android:layout_marginBottom="16dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarStyle="insideInset"
+        app:layout_constraintBottom_toTopOf="@+id/btn_prosseguir"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toBottomOf="@+id/txt_codigo_barras"
+        app:layout_constraintVertical_bias="0.029999971"
         tools:listitem="@layout/item_pedido_card" />
 
     <Button

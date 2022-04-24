@@ -3,6 +3,7 @@ package com.guinigri.prestige.mobile.pedido.viewmodel.produto
 import android.content.Context
 import android.os.Build
 import android.os.Parcelable
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +12,7 @@ import com.guinigri.prestige.mobile.pedido.api.RetroFitClient
 import com.guinigri.prestige.mobile.pedido.settings.Token
 import com.guinigri.prestige.mobile.pedido.viewmodel.BaseCallViewModel
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.synthetic.main.fragment_order.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -41,6 +43,7 @@ class CallProductApiViewModel: BaseCallViewModel() {
 
                     if(response.code() == 422) {
                         Toast.makeText(context, mensagemProdutoNaoEncontrado, Toast.LENGTH_LONG).show()
+                        produto.value = null
                         return
                     }
 

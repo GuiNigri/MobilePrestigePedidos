@@ -43,6 +43,7 @@ class CallPedidoApiViewModel: BaseCallViewModel() {
 
                     if(response.code() == 422) {
                         Toast.makeText(context, mensagemProblemaRegistrarPedido, Toast.LENGTH_LONG).show()
+                        numeroPedido.value = null
                         return
                     }
 

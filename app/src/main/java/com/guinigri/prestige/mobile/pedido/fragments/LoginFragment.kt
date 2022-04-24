@@ -19,9 +19,9 @@ import kotlinx.android.synthetic.main.fragment_login.*
 class LoginFragment : Fragment() {
 
     private lateinit var loginApiViewModel: CallLoginApiViewModel
-    private lateinit var viewModelFactory: ViewModelFactory
+    private var viewModelFactory = ViewModelFactory()
 
-    val MensagemCamposNaoPreenchidos = "Todos os campos devem ser preenchidos"
+    private val mensagemCamposNaoPreenchidos = "Todos os campos devem ser preenchidos"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,15 +31,10 @@ class LoginFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModelFactory = ViewModelFactory()
-        activity?.let {
-            loginApiViewModel =
-                ViewModelProvider(it, viewModelFactory) // MainActivity
-                    .get(CallLoginApiViewModel::class.java)
-        }
+        criarViewModel()
 
         btn_entrar.setOnClickListener {
             var email = txtEmail.text.toString();
@@ -48,8 +43,9 @@ class LoginFragment : Fragment() {
             if(email.isNotEmpty() && senha.isNotEmpty()) {
                 progressBarLogin.visibility = View.VISIBLE
                 autenticar(email, senha)
-            }else
-                exibirNotificacao(MensagemCamposNaoPreenchidos)
+            }
+            else
+                exibirNotificacao(mensagemCamposNaoPreenchidos)
         }
 
         btn_return.setOnClickListener {
@@ -57,7 +53,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun exibirNotificacao(mensagem : String){
+    private fun exibirNotificacao(mensagem : String) {
         Toast.makeText(
             requireContext(),
             mensagem,
@@ -65,9 +61,7 @@ class LoginFragment : Fragment() {
         ).show()
     }
 
-    private fun autenticar(email: String, senha: String){
-
-
+    private fun autenticar(email: String, senha: String) {
         loginApiViewModel.logar(email, senha, requireContext());
 
         loginApiViewModel.status.observe(viewLifecycleOwner, Observer { status ->
@@ -81,4 +75,10 @@ class LoginFragment : Fragment() {
         })
     }
 
+    private fun criarViewModel() {
+
+        loginApiViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory) // MainActivity
+                .get(CallLoginApiViewModel::class.java)
+    }
 }

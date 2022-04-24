@@ -26,7 +26,7 @@ import java.util.*
 class PagamentoFragment : Fragment() {
 
     private lateinit var pedidoApiViewModel: CallPedidoApiViewModel
-    private lateinit var viewModelFactory: ViewModelFactory
+    private var viewModelFactory = ViewModelFactory()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +38,7 @@ class PagamentoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
+
         criarViewModel()
 
         atualizarValorTela(calcularValorTotal())
@@ -45,44 +46,49 @@ class PagamentoFragment : Fragment() {
         observarAtualizacaoValores()
 
         btn_finalizar.setOnClickListener {
-            if(submissaoNaoEhValida())
+            if (submissaoNaoEhValida())
                 Toast.makeText(context, "Todos os campos são obrigatorios", Toast.LENGTH_LONG).show()
-            else
+            else {
                 progressBarFinalizarPedido.visibility = View.VISIBLE
                 finalizarPedido()
+            }
+
         }
 
         pedidoApiViewModel.numeroPedido.observe(viewLifecycleOwner, androidx.lifecycle.Observer { pedidoResponse ->
-            if(pedidoResponse != null){
+            if (pedidoResponse != null) {
                 navegarTelaSucesso(pedidoResponse.numeroPedido!!)
-                resetarNaConclusaoPedido()
-                progressBarFinalizarPedido.visibility = View.GONE
+                resetarConclusaoPedido()
             }
+
+            progressBarFinalizarPedido.visibility = View.GONE
         })
     }
 
-    private fun resetarNaConclusaoPedido(){
+    private fun resetarConclusaoPedido() {
         ProdutoAdapter.resetar()
         pedidoApiViewModel.numeroPedido.value = null
     }
 
-    private fun navegarTelaSucesso(numeroPedido:Int){
+    private fun navegarTelaSucesso(numeroPedido:Int) {
         val action =
             PagamentoFragmentDirections.actionPagamentoFragmentToPedidoSucessoFragment(
                 numeroPedido
             )
+
         findNavController().navigate(action)
     }
 
-    private fun submissaoNaoEhValida(): Boolean{
+    private fun submissaoNaoEhValida(): Boolean {
         return (txt_parcelas.text.isNullOrEmpty() || txt_desconto.text.isNullOrEmpty() || txt_frete.text.isNullOrEmpty())
     }
-    private fun finalizarPedido(){
+
+    private fun finalizarPedido() {
         var request = montarRequest()
         pedidoApiViewModel.registrarPedido(request, requireContext())
     }
 
-    private fun montarRequest() : RegistrarPedidoRequest{
+    private fun montarRequest() : RegistrarPedidoRequest {
         var produtosDto = mutableListOf<ProdutoDto>()
         var empresa = EmpresaPedidoFragment.empresa.value!!.id
         var formaPagamento = txt_forma_pagamento.selectedItem.toString().lowercase()
@@ -104,16 +110,13 @@ class PagamentoFragment : Fragment() {
         return RegistrarPedidoRequest(empresa, produtosDto, pagamentoDto, observacoes)
     }
 
-    private fun criarViewModel(){
-        viewModelFactory = ViewModelFactory()
-        activity?.let {
-            pedidoApiViewModel =
-                ViewModelProvider(it, viewModelFactory) // MainActivity
-                    .get(CallPedidoApiViewModel::class.java)
-        }
+    private fun criarViewModel() {
+        pedidoApiViewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory) // MainActivity
+                .get(CallPedidoApiViewModel::class.java)
     }
 
-    private fun calcularValorTotal(): Double{
+    private fun calcularValorTotal(): Double {
         var subtotal = ProdutoAdapter.valorTotalSemFormatacao.value!!.toDouble()
         var frete = if(txt_frete.text.isNullOrEmpty()) 0.0 else txt_frete.text.toString().toDouble()
         var desconto = if(txt_desconto.text.isNullOrEmpty()) 0.0 else txt_desconto.text.toString().toDouble()
@@ -121,7 +124,7 @@ class PagamentoFragment : Fragment() {
         return subtotal + frete - desconto
     }
 
-    private fun observarAtualizacaoValores(){
+    private fun observarAtualizacaoValores() {
 
         txt_frete.doAfterTextChanged {
             atualizarValorTela(calcularValorTotal())
@@ -132,11 +135,11 @@ class PagamentoFragment : Fragment() {
         }
     }
 
-    private fun atualizarValorTela(valor: Double){
+    private fun atualizarValorTela(valor: Double) {
         txt_valor_total_pagamento.text = "Valor: R$ ${formatarParaRealBrl(valor)}"
     }
 
-    private fun formatarParaRealBrl(valor: Double): String{
+    private fun formatarParaRealBrl(valor: Double): String {
         val numberFormat: NumberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
 
         val formatter = numberFormat as DecimalFormat
